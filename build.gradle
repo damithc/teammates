@@ -217,6 +217,7 @@ task createIntellijRunConfigs << {
     def templatesToCopy = [
         ".templates/intellijRunConfigs/All_Tests__Godmode_.xml",
         ".templates/intellijRunConfigs/All_Tests.xml",
+        ".templates/intellijRunConfigs/Staging_Tests.xml",
         ".templates/intellijRunConfigs/CI_Tests__Godmode_.xml",
         ".templates/intellijRunConfigs/CI_Tests.xml",
         ".templates/intellijRunConfigs/Failed_Tests__Godmode_.xml",
