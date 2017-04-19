@@ -15,6 +15,7 @@ import teammates.common.datatransfer.StudentResultSummary;
 import teammates.common.datatransfer.TeamEvalResult;
 import teammates.common.datatransfer.attributes.FeedbackQuestionAttributes;
 import teammates.common.datatransfer.attributes.FeedbackResponseAttributes;
+import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.util.Const;
 import teammates.common.util.HttpRequestHelper;
 import teammates.common.util.Logger;
@@ -359,8 +360,14 @@ public class FeedbackContributionQuestionDetails extends FeedbackQuestionDetails
         for (Map.Entry<String, StudentResultSummary> entry : studentResults.entrySet()) {
             StudentResultSummary summary = entry.getValue();
             String email = entry.getKey();
-            String name = bundle.roster.getStudentForEmail(email).name;
-            String team = bundle.roster.getStudentForEmail(email).team;
+            StudentAttributes studentForEmail = bundle.roster.getStudentForEmail(email);
+            if(studentForEmail == null){
+                log.severe("No student found in roster for " + email);
+                continue;
+            }
+
+            String name = studentForEmail.name;
+            String team = studentForEmail.team;
 
             List<String> teamEmails = teamMembersEmail.get(team);
             TeamEvalResult teamResult = teamResults.get(team);
