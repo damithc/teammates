@@ -268,8 +268,14 @@ public class FeedbackContributionQuestionDetails extends FeedbackQuestionDetails
         for (Map.Entry<String, StudentResultSummary> entry : studentResults.entrySet()) {
             StudentResultSummary summary = entry.getValue();
             String email = entry.getKey();
-            String name = bundle.roster.getStudentForEmail(email).name;
-            String team = bundle.roster.getStudentForEmail(email).team;
+            StudentAttributes studentForEmail = bundle.roster.getStudentForEmail(email);
+            if(studentForEmail == null){
+                log.severe("No student found in roster for " + email);
+                continue;
+            }
+
+            String name = studentForEmail.name;
+            String team = studentForEmail.team;
 
             List<String> teamEmails = teamMembersEmail.get(team);
             TeamEvalResult teamResult = teamResults.get(team);
